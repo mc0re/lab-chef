@@ -16,6 +16,7 @@ $AdminUsername = 'chef'
 
 ### Connect to Azure account
 
+Connect-AzureRmAccount
 if (Get-AzureSubscription){
     Get-AzureSubscription -SubscriptionName $SubscriptionName | Select-AzureSubscription -Verbose
     }
@@ -26,15 +27,15 @@ if (Get-AzureSubscription){
 
 ### Get Resource Group ###
 $AzureResourceGroup = Get-AzureRmResourceGroup -Name $GroupName
-Write-Host 'Resource Group Name is'$AzureResourceGroup.ResourceGroupName
+Write-Host 'Resource Group Name is: '$AzureResourceGroup.ResourceGroupName
 
 ### Get Storage Account ###
 $AzureStorageAccount = (Get-AzureRmStorageAccount -ResourceGroupName $GroupName).StorageAccountName
-Write-Host 'Storage Account is' $AzureStorageAccount
+Write-Host 'Storage Account is: ' $AzureStorageAccount
 
 ### Get Virtual Network ###
 $AzureVirtualNetwork = ($AzureResourceGroup | Get-AzureRmVirtualNetwork).Name
-Write-Host 'Virtual Network is' $AzureVirtualNetwork
+Write-Host 'Virtual Network is: ' $AzureVirtualNetwork
 
 $parameters = @{
     'StorageAccountName'="$AzureStorageAccount";
@@ -47,6 +48,6 @@ New-AzureRmResourceGroupDeployment `
     -Name $DeploymentName `
     -ResourceGroupName $AzureResourceGroup.ResourceGroupName `
     -StorageAccountName $AzureStorageAccount `
-    -TemplateFile WindowsClient.json `
+    -TemplateFile LinuxClient.json `
     -TemplateParameterObject $parameters `
     -Verbose
