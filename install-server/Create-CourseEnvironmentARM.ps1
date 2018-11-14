@@ -17,6 +17,7 @@ $AdminUsername = 'chef'
 
 ### Connect to Azure account
 
+Connect-AzureRmAccount
 if (Get-AzureRmSubscription){
     Get-AzureRmSubscription -SubscriptionName $SubscriptionName | Select-AzureRmSubscription -Verbose
     }
