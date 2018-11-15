@@ -14,6 +14,14 @@ Also located inside the .chef directory are .pem files, which contain private ke
 
 More information about knife.rb configuration options can be found in [the documentation for knife](https://docs.chef.io/config_rb_knife.html).
 
+Server configuration
+--------------------
+After server restart, one needs to:
+* Run `chef-server-ctl reconfigure` on the server
+* Update the IP address in the `hosts` file on the work station
+* Update SSL keys on the work station by `knife ssl fetch`
+* Re-download `PEM` files (in the Starter Kit, under `repo/.chef`)
+
 Cookbooks
 ---------
 A cookbook is the fundamental unit of configuration and policy distribution. A sample cookbook can be found in `cookbooks/starter`. After making changes to any cookbook, you must upload it to the Chef server using knife:
