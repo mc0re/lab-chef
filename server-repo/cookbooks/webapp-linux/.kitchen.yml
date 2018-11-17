@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["private_network", {ip: "192.168.33.33"}]
 
 provisioner:
   name: chef_zero
@@ -9,18 +11,23 @@ provisioner:
   #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
 
-verifier:
-  name: inspec
+# verifier:
+#   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7
+  - name: ubuntu-12.04
 
 suites:
   - name: default
+    data_bags_path: '../../data_bags'
     run_list:
       - recipe[webapp-linux::default]
+    provisioner:
+      encrypted_data_bag_secret_key_path: 'C:\Projects\Experiments\encrypted_data_bag_secret'
     verifier:
       inspec_tests:
         - test/integration/default
     attributes:
+      webapp-linux:
+        credentials:
+          secret_path: '/tmp/kitchen/encrypted_data_bag_secret'
