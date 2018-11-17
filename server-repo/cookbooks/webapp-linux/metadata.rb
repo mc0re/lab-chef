@@ -1,0 +1,13 @@
+name 'webapp-linux'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'All Rights Reserved'
+description 'Installs/Configures webapp-linux'
+long_description 'Installs/Configures webapp-linux'
+version '0.1.20'
+chef_version '>= 13.0'
+
+depends 'apt', '~> 7.1.1'
+depends 'httpd'
+# depends 'apache2', '~> 5.2.1'
+depends 'firewall', '~> 2.6.5'
